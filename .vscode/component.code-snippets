@@ -1,0 +1,33 @@
+/*
+Current folder name: Component/index.tsx -> Component
+${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/}
+*/
+{
+  "Component": {
+    "scope": "typescriptreact",
+    "prefix": "comp",
+    "body": [
+      /*
+      import { styles } from "@/modules/shared";
+
+      export type ComponentProps = {
+        className?: string;
+      }
+
+      export const Component = ({ className }: ComponentProps) {
+        return <div className={styles(className)}>Component</div>;
+      }
+      */
+      "import { styles } from \"@/modules/shared\";",
+      "",
+      "export type ${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/}Props = {",
+      "  className?: string;",
+      "}",
+      "",
+      "export const ${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/} = ({ className }: ${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/}Props) => {",
+      "  return <div className={styles(className)}>${TM_DIRECTORY/^.+[\\/\\\\]+(.*)$/$1/}$0</div>;",
+      "};",
+      ""
+    ]
+  }
+}
