@@ -18,7 +18,8 @@ export class ConfigService {
       POSTGRES_DATABASE: z.string(),
       PORT: z.string().regex(/^\d+$/).transform(Number),
       MODE: z.enum(['development', 'production', 'test']),
-      RUN_MIGRATIONS: z.string().transform((val) => val === 'true'),
+      JWT_SECRET: z.string(),
+      JWT_EXPIRATION_TIME: z.string(),
     });
 
     return envsSchema.parse(config);

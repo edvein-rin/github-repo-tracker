@@ -1,3 +1,4 @@
+import { IsNotEmpty } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
 
 @Entity()
@@ -8,12 +9,15 @@ export class Repository {
   id: number;
 
   @Column()
+  @IsNotEmpty()
   author: string;
 
   @Column()
+  @IsNotEmpty()
   name: string;
 
   @Column()
+  @IsNotEmpty()
   url: string;
 
   @Column({ type: 'int' })

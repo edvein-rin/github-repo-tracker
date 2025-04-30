@@ -7,6 +7,7 @@ import { RepositoryModule } from './repository/repository.module';
 import { UserRepositoryModule } from './user-repository/user-repository.module';
 import { ConfigService } from './config/config.service';
 import { ConfigModule } from './config/config.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { ConfigModule } from './config/config.module';
     RepositoryModule,
     UserModule,
     UserRepositoryModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

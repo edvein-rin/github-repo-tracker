@@ -6,5 +6,6 @@ export type EnvironmentVariables = {
   POSTGRES_DATABASE: string;
   PORT: number;
   MODE: 'development' | 'production' | 'test';
-  RUN_MIGRATIONS: boolean;
+  JWT_SECRET: string;
+  JWT_EXPIRATION_TIME: string;
 };
