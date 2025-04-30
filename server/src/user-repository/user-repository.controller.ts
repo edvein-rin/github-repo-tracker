@@ -7,43 +7,105 @@ import {
   Param,
   Delete,
   UseGuards,
+  Logger,
+  Req,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 import { UserRepositoryService } from './user-repository.service';
 import { CreateUserRepositoryDto } from './dto/create-user-repository.dto';
-import { ReloadUserRepositoryDto } from './dto/reload-user-repository.dto';
+import { Request } from 'express';
 
 @UseGuards(JwtAuthGuard)
 @Controller('users/:userId/repositories')
 export class UserRepositoryController {
+  private readonly logger = new Logger(UserRepositoryController.name);
+
   constructor(private readonly userRepositoryService: UserRepositoryService) {}
 
   @Post()
   create(
-    @Param('userId') userId: string,
+    @Req() req: Request,
+    @Param('userId') rawUserId: string,
     @Body() createUserRepositoryDto: CreateUserRepositoryDto,
   ) {
-    return this.userRepositoryService.create(createUserRepositoryDto);
+    const userId = +rawUserId;
+
+    const user = req.user!;
+    if (user.id !== userId) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
+
+    const { repositoryPath } = createUserRepositoryDto;
+    const repositoryPathParts = repositoryPath.split('/');
+    if (repositoryPathParts.length !== 2) {
+      throw new HttpException(
+        'Repository path should be in the format "author/name"',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    const [repositoryAuthor, repositoryName] = repositoryPathParts;
+    if (repositoryAuthor.length === 0 || repositoryName.length === 0) {
+      throw new HttpException(
+        'Repository path should be in the format "author/name"',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    return this.userRepositoryService.create(
+      userId,
+      repositoryAuthor,
+      repositoryName,
+    );
   }
 
   @Get()
-  findAll(@Param('userId') userId: string) {
-    return this.userRepositoryService.findAll();
+  findAll(@Req() req: Request, @Param('userId') rawUserId: string) {
+    const userId = +rawUserId;
+
+    const user = req.user!;
+    if (user.id !== userId) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
+
+    this.logger.log(`findAll | userId = ${userId}`);
+    return this.userRepositoryService.findAll(userId);
   }
 
-  @Patch(':id')
+  @Post(':id/reload')
   reload(
-    @Param('userId') userId: string,
-    @Param('id') id: string,
-    @Body() reloadUserRepositoryDto: ReloadUserRepositoryDto,
+    @Req() req: Request,
+    @Param('userId') rawUserId: string,
+    @Param('id') rawId: string,
   ) {
-    return this.userRepositoryService.reload(+id, reloadUserRepositoryDto);
+    const userId = +rawUserId;
+    const id = +rawId;
+
+    const user = req.user!;
+    if (user.id !== userId) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
+
+    return this.userRepositoryService.reload(id);
   }
 
   @Delete(':id')
-  remove(@Param('userId') userId: string, @Param('id') id: string) {
-    return this.userRepositoryService.remove(+id);
+  remove(
+    @Req() req: Request,
+    @Param('userId') rawUserId: string,
+    @Param('id') rawId: string,
+  ) {
+    const userId = +rawUserId;
+    const id = +rawId;
+
+    const user = req.user!;
+    if (user.id !== userId) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
+
+    return this.userRepositoryService.remove(id);
   }
 }
