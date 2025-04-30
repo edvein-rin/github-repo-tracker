@@ -15,7 +15,7 @@ export const Header = ({ className }: HeaderProps) => {
     removeToken();
   };
 
-  if (window === undefined) return null;
+  if (typeof window === "undefined") return null;
 
   return (
     <header className={styles(className)}>
