@@ -50,7 +50,7 @@ export class AuthService {
   async register(
     email: string,
     password: string,
-  ): Promise<UserWithoutCredentials> {
+  ): Promise<{ accessToken: string }> {
     const { hash, salt } = this.hashPassword(password);
     const user = await this.userService.create({
       email,
@@ -58,9 +58,14 @@ export class AuthService {
       passwordSalt: salt,
     });
 
+    const accessToken = this.jwtService.sign({
+      username: user.email,
+      sub: user.id,
+    });
+
     this.logger.debug(`register | email=${user.email}`);
 
-    return user;
+    return { accessToken };
   }
 
   login(user: User): { accessToken: string } {
