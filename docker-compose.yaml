@@ -33,8 +33,8 @@ services:
       dockerfile: ./Dockerfile.${MODE:-production}
     environment:
       POSTGRES_HOST: postgres
-      POSTGRES_POST: ${POSTGRES_PORT}
-      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_DATABASE: ${POSTGRES_DATABASE}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       PORT: ${SERVER_PORT}
@@ -52,5 +52,20 @@ services:
           action: rebuild
     volumes:
       - ./server/src:/app/src
+  client:
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile.${MODE:-production}
+    environment:
+      NEXT_PUBLIC_SERVER_URL: server:${SERVER_PORT}
+      PORT: ${CLIENT_PORT}
+    ports:
+      - ${CLIENT_PORT}:${CLIENT_PORT}
+    develop:
+      watch:
+        - path: ./client/package.json
+          action: rebuild
+    volumes:
+      - ./client/src:/app/src
 volumes:
   postgres:
