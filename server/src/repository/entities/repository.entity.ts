@@ -27,7 +27,7 @@ export class Repository {
   forksCount: number;
 
   @Column({ type: 'int' })
-  issuesCount: number;
+  openIssuesCount: number;
 
   @Column({ type: 'timestamp' })
   creationDate: Date;
