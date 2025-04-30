@@ -20,6 +20,7 @@ export class ConfigService {
       MODE: z.enum(['development', 'production', 'test']),
       JWT_SECRET: z.string(),
       JWT_EXPIRATION_TIME: z.string(),
+      CLIENT_URL: z.string(),
     });
 
     return envsSchema.parse(config);

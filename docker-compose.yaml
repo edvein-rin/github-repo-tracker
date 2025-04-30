@@ -41,6 +41,7 @@ services:
       MODE: ${MODE}
       JWT_SECRET: ${SERVER_JWT_SECRET}
       JWT_EXPIRATION_TIME: ${SERVER_JWT_EXPIRATION_TIME}
+      CLIENT_URL: ${SERVER_CLIENT_URL}
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
     depends_on:
@@ -57,7 +58,7 @@ services:
       context: ./client
       dockerfile: ./Dockerfile.${MODE:-production}
     environment:
-      NEXT_PUBLIC_SERVER_URL: server:${SERVER_PORT}
+      NEXT_PUBLIC_SERVER_URL: ${CLIENT_SERVER_URL}
       PORT: ${CLIENT_PORT}
     ports:
       - ${CLIENT_PORT}:${CLIENT_PORT}

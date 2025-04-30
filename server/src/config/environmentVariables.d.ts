@@ -8,4 +8,5 @@ export type EnvironmentVariables = {
   MODE: 'development' | 'production' | 'test';
   JWT_SECRET: string;
   JWT_EXPIRATION_TIME: string;
+  CLIENT_URL: string;
 };
