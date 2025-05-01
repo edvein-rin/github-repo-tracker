@@ -55,3 +55,10 @@ CLIENT_SERVER_URL
 ```bash
 docker compose up -d
 ```
+
+With default `.env.example` envs:
+
+[127.0.0.1:3000](127.0.0.1:3000) — Client  
+[127.0.0.1:5000](127.0.0.1:5000) — Server  
+[127.0.0.1:5432](127.0.0.1:5432) — DB  
+[127.0.0.1:5050](127.0.0.1:5050) — pgAdmin
