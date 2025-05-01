@@ -11,5 +11,7 @@ export const RepositoryList = ({
   children,
   className,
 }: RepositoryListProps) => {
-  return <ul className={styles(className)}>{children}</ul>;
+  return (
+    <ul className={styles("flex flex-col gap-4", className)}>{children}</ul>
+  );
 };

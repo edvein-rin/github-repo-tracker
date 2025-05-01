@@ -6,6 +6,7 @@ export {
   queryClient,
   QueryClientProvider,
   styles,
+  errorToErrorMessage,
 } from "./lib";
 export type { QueryClientProviderProps } from "./lib";
 export { Button, Code, Link, TextInput } from "./ui";

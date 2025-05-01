@@ -15,17 +15,23 @@ export const Header = ({ className }: HeaderProps) => {
     removeToken();
   };
 
-  if (typeof window === "undefined") return null;
-
   return (
-    <header className={styles(className)}>
-      {user === undefined && <div>Loading...</div>}
-      {user === null && <LoginRegistrationForm />}
-      {!!user && (
-        <div className="flex gap-6 items-center">
-          <span className="font-bold">{user.email}</span>
-          <Button onClick={handleLogoutButtonClick}>Logout</Button>
-        </div>
+    <header
+      className={styles("min-h-12 flex items-center justify-center", className)}
+    >
+      {typeof window === "undefined" ? (
+        <div>Loading...</div>
+      ) : (
+        <>
+          {user === undefined && <div>Loading...</div>}
+          {user === null && <LoginRegistrationForm />}
+          {!!user && (
+            <div className="flex gap-6 items-center">
+              <span className="font-bold">{user.email}</span>
+              <Button onClick={handleLogoutButtonClick}>Logout</Button>
+            </div>
+          )}
+        </>
       )}
     </header>
   );

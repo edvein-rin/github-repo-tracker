@@ -88,6 +88,7 @@ export class UserRepositoryController {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
 
+    this.logger.log(`reload | userId = ${userId} | repositoryId = ${id}`);
     return this.userRepositoryService.reload(id);
   }
 
@@ -105,6 +106,7 @@ export class UserRepositoryController {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
 
+    this.logger.log(`delete | userId = ${userId} | repositoryId = ${id}`);
     return this.userRepositoryService.remove(id);
   }
 }
