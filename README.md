@@ -1,11 +1,11 @@
 <h1 align="center">⭐ Github Repo Tracker ⭐</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Node.js-22.14.0-green" />
-  <img src="https://img.shields.io/badge/React-^19-blue" />
-  <img src="https://img.shields.io/badge/Next.js-15.3.1-white" />
-  <img src="https://img.shields.io/badge/Nest.js-11.0.1-red" />
-  <img src="https://img.shields.io/github/license/edvein-rin/who-wants-to-be-a-millionaire.svg?color=blue" />
+  <img src="https://img.shields.io/badge/22.14.0-white?logo=node.js&logoColor=white&label=Node.js&labelColor=5FA04E" />
+  <img src="https://img.shields.io/badge/^19-white?logo=react&logoColor=white&label=React&labelColor=61DAFB" />
+  <img src="https://img.shields.io/badge/15.3.1-white?logo=next.js&label=Next.js&labelColor=black" />
+  <img src="https://img.shields.io/badge/11.0.1-white?logo=nestjs&label=Nest.js&labelColor=E0234E" />
+  <img src="https://img.shields.io/github/license/edvein-rin/who-wants-to-be-a-millionaire.svg?color=white" />
 <p>
 
 <p align="center">
